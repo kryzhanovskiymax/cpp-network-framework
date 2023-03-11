@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/asio/ip/tcp.hpp>
@@ -10,7 +12,7 @@
 #include "error.hpp"
 #include "session.hpp"
 
-namespace http {
+namespace http_server {
 namespace net = boost::asio;
 using tcp = net::ip::tcp;
 namespace beast = boost::beast;
