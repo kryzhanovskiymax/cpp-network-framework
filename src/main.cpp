@@ -23,9 +23,9 @@ using StringResponse = http::response<http::string_body>;
 
 void DumpRequest(const StringRequest& req) {
     std::cout << req.method() << ' ' << req.target() << std::endl;
-    for (const auto& header : req) {
-        std::cout << " "sv << header.name_string() << ": "sv << header.value() << std::endl;
-    }
+    // for (const auto& header : req) {
+    //     std::cout << " "sv << header.name_string() << ": "sv << header.value() << std::endl;
+    // }
 }
 
 std::string ProcessTarget(std::string s) {
