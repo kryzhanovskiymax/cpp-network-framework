@@ -5,7 +5,7 @@
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 
-namespace http {
+namespace http_server {
 
 namespace beast = boost::beast;
 

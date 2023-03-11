@@ -67,6 +67,7 @@ private:
     }
 
     void OnWrite(bool close, beast::error_code ec, [[maybe_unused]] std::size_t bytes_written) {
+        using namespace std::literals;
         if (ec) {
             return ReportError(ec, "write"sv);
         }
