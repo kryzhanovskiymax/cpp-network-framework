@@ -9,6 +9,8 @@
 #include <boost/asio/strand.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
+#include <boost/json.hpp>
+#include <boost/json/src.hpp>
 
 #include "listener.hpp"
 #include "session.hpp"
@@ -17,6 +19,7 @@ namespace net = boost::asio;
 using namespace std::literals;
 namespace sys = boost::system;
 namespace http = boost::beast::http;
+namespace json = boost::json;
 
 using StringRequest = http::request<http::string_body>;
 using StringResponse = http::response<http::string_body>;
@@ -26,6 +29,8 @@ void DumpRequest(const StringRequest& req) {
     // for (const auto& header : req) {
     //     std::cout << " "sv << header.name_string() << ": "sv << header.value() << std::endl;
     // }
+    std::cout << "BODY: " << std::endl;
+    std::cout << req.body() << std::endl;
 }
 
 std::string ProcessTarget(std::string s) {
@@ -41,9 +46,12 @@ StringResponse HandleRequest(StringRequest&& request) {
     DumpRequest(request);
     using namespace std::literals;
     StringResponse response(http::status::ok, request.version());
-    response.set(http::field::content_type, "text/html");
-    std::string_view trgt = request.target();
-    response.body() = "<strong>Hello, "s + ProcessTarget(trgt.data()) + "</strong>"s;
+    response.set(http::field::content_type, "application/json");
+    
+    json::object person;
+    person["name"] = "maxim";
+    person["surname"] = "kryzhanoskiy";
+    response.body() = json::serialize(person);
     response.content_length(response.body().size());
     response.keep_alive(request.keep_alive());
     return response;
