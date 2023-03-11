@@ -7,6 +7,8 @@
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 
+#include "error.hpp"
+
 namespace http {
 namespace net = boost::asio;
 using tcp = net::ip::tcp;

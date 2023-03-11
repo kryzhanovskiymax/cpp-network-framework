@@ -1,9 +1,14 @@
+#pragma once
+
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/strand.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
+
+#include "error.hpp"
+#include "session.hpp"
 
 namespace http {
 namespace net = boost::asio;
