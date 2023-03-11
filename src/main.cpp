@@ -51,6 +51,7 @@ StringResponse HandleRequest(StringRequest&& request) {
 
 template <typename Fn>
 void RunWorkers(unsigned int n, const Fn& fn) {
+    std::cout << "Wroking on " << n << " threads" << std::endl;
     n = std::max(1u, n);
     std::vector<std::thread> workers;
     workers.reserve(n - 1);
