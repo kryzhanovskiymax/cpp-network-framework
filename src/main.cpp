@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <string>
 
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/steady_timer.hpp>
@@ -178,12 +179,24 @@ void DumpRequest(const StringRequest& req) {
     }
 }
 
+std::string ProcessTarget(std::string s) {
+    std::string str = "";
+    for (const auto& ch : s) {
+        if (ch != '/') {
+            str += ch;
+        }
+    }
+    return str;
+}
 StringResponse HandleRequest(StringRequest&& request) {
     DumpRequest(request);
+    using namespace std::literals;
     StringResponse response(http::status::ok, request.version());
             // Добавляем заголовок Content-Type: text/html
     response.set(http::field::content_type, "text/html");
-    response.body() = "<strong>Hello</strong>";
+    // std::string str = request.target();
+    std::string_view trgt = request.target();
+    response.body() = "<strong>Hello, "s + ProcessTarget(trgt.data()) + "</strong>"s;
             // Формируем заголовок Content-Length, сообщающий длину тела ответа
     response.content_length(response.body().size());
             // Формируем заголовок Connection в зависимости от значения заголовка в запросе
