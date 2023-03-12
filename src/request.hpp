@@ -20,9 +20,12 @@ public:
     
     std::vector<std::string> GetUrl() const;
     json::object GetBody() const;
+    bool KeepAlive() const;
 private:
     std::vector<std::string> url_;
+    http::header<true, http::fields> headers_;
     json::object body_;
+    bool keep_alive_;
 
     std::vector<std::string> ParseUrl(std::string&& url) const;
 };
@@ -30,6 +33,8 @@ private:
 HttpRequest::HttpRequest(http::request<http::string_body>&& request) {
     url_ = ParseUrl(std::move(request.target().data()));
     body_ = json::parse(request.body()).get_object();
+    headers_ = request.base();
+    keep_alive_ = request.keep_alive();
 }
 
 std::vector<std::string> HttpRequest::GetUrl() const {
