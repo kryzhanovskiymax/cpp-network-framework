@@ -20,6 +20,7 @@ public:
     
     std::vector<std::string> GetUrl() const;
     json::object GetBody() const;
+    http::header<true, http::fields> GetHeaders() const;
     bool KeepAlive() const;
 private:
     std::vector<std::string> url_;
@@ -43,6 +44,10 @@ std::vector<std::string> HttpRequest::GetUrl() const {
 
 json::object HttpRequest::GetBody() const {
     return body_;
+}
+
+http::header<true, http::fields> HttpRequest::GetHeaders() const {
+    return headers_;
 }
 
 std::vector<std::string> HttpRequest::ParseUrl(std::string&& url) const {
