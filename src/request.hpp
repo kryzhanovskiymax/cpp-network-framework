@@ -33,11 +33,11 @@ HttpRequest::HttpRequest(http::request<http::string_body>&& request) {
 }
 
 std::vector<std::string> HttpRequest::GetUrl() const {
-    
+    return url_;
 }
 
 json::object HttpRequest::GetBody() const {
-
+    return body_;
 }
 
 std::vector<std::string> HttpRequest::ParseUrl(std::string&& url) const {
