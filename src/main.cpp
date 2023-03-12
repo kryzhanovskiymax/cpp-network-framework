@@ -24,30 +24,10 @@ namespace json = boost::json;
 using StringRequest = http::request<http::string_body>;
 using StringResponse = http::response<http::string_body>;
 
-void DumpRequest(const StringRequest& req) {
-    std::cout << req.method() << ' ' << req.target() << std::endl;
-    // for (const auto& header : req) {
-    //     std::cout << " "sv << header.name_string() << ": "sv << header.value() << std::endl;
-    // }
-    std::cout << "BODY: " << std::endl;
-    std::cout << req.body() << std::endl;
-}
-
-std::string ProcessTarget(std::string s) {
-    std::string str = "";
-    for (const auto& ch : s) {
-        if (ch != '/') {
-            str += ch;
-        }
-    }
-    return str;
-}
 StringResponse HandleRequest(StringRequest&& request) {
-    DumpRequest(request);
     using namespace std::literals;
     StringResponse response(http::status::ok, request.version());
-    response.set(http::field::content_type, "application/json");
-    
+    response.set(http::field::content_type, "application/json"); 
     json::object person;
     person["name"] = "maxim";
     person["surname"] = "kryzhanoskiy";
