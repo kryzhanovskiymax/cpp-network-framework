@@ -35,11 +35,8 @@ StringResponse HandleRequest(StringRequest&& request) {
     StringResponse response(http::status::ok, request.version());
     response.set(http::field::content_type, "application/json"); 
     json::object person;
-
-    // std::cout << request.body() << std::endl;
     std::string str = request.body();
     std::cout << str << std::endl;
-
     person["name"] = "maxim";
     person["surname"] = "kryzhanoskiy";
     response.body() = json::serialize(person);
