@@ -1,3 +1,9 @@
+/*
+
+C++ Framework for handling and processing HTTP request according to standard Web 2.0
+
+*/
+
 #include <iostream>
 #include <thread>
 #include <vector>
